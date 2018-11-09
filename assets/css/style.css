@@ -1,0 +1,118 @@
+/* 
+===========================
+General styles
+===========================
+*/
+
+html {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-image: url("../images/grass.jpg");
+    background-repeat: repeat;
+    font-family: 'Poppins', sans-serif;
+}
+
+h1 {
+    font-size: 64px;
+    font-family: 'Bungee Shade', cursive;
+}
+
+#game-wrapper {
+    margin: 3em;
+    padding: 2em;
+    border: 2px solid black;
+    border-radius: 8px;
+    background-color: white;
+    box-sizing: border-box;
+}
+
+/* 
+===========================
+Masthead styles
+===========================
+*/
+
+#masthead h1 {
+    background: linear-gradient(to right, rgb(58, 131, 76) 0%, #3766e7 100%);
+	-webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    box-sizing: border-box;
+	/* font: {
+		size: 20vw;
+		family: $font;
+    }; */
+}
+
+/* 
+===========================
+First row styles
+===========================
+*/
+
+#first-row {
+    margin: 2em;
+    padding: 2em;
+    box-sizing: border-box;
+    border: 2px solid gold;
+    border-radius: 8px;
+}
+
+#soccer-player-char {
+    font-size: 32px;
+    letter-spacing: 3px;
+}
+
+#first-row h2 {
+    font-size: 18px;
+    font-style: italic;
+}
+
+/* 
+===========================
+Second row styles
+===========================
+*/
+
+#second-row {
+    display: flex;
+    flex-flow: row wrap;
+    box-sizing: border-box;
+    justify-content: center;
+}
+
+#player-photo {
+    box-sizing: content-box;
+    flex: 0 1 auto;
+    margin: auto;
+    padding: 2em;
+}
+
+#player-photo p {
+    margin-top: 1em;
+}
+
+#game-stats {
+    box-sizing: content-box;
+    flex: 0 1 auto;
+    margin: auto;
+    padding: 2em;
+    border: 2px solid black;
+    border-radius: 8px;
+}
+
+#game-stats h3 {
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: underline;
+    margin-top: 1em;
+}
+
+#game-stats p {
+    margin-top: 0.5em;
+}
+
