@@ -13,23 +13,24 @@
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/ico" href="assets/images/favicon.ico"/>
 
-	<title>Soccer Word Guess</title>
+	<title>Premier League Word Guess</title>
 </head>
 
 <body>
 
     <!-- Game logo -->
     <div id="game-wrapper">
-        <section id="masthead">
-            <h1>Soccer Word Guess</h1>
-        </section>
+        <header id="masthead">
+            <h1>Premier League Word Guess</h1>
+        </header>
 
         <!-- Playing area where the game takes place -->
         <section id="game-board">
 
             <!-- First row where player name characters are revealed -->
             <div id="first-row">
-                <h2>Press any key to get started</h2> <span id="soccer-player-char"></span>
+                <h2>Press any key to get started</h2>
+                <p><span id="soccer-player-char"></span></p>
             </div>
 
             <!-- Second row where player photos are displayed, plus game stats -->
@@ -37,21 +38,20 @@
 
                 <!-- Player photo displayed here. Aligned to the left of the game stats. -->
                 <div id="player-photo">
-                    <img src="assets/images/200x200.png" alt="placholder for soccer player's face">
-                    <p>Player Name</p>
+                    <img src="assets/images/soccer-ball.jpg" alt="Soccer ball on a green pitch.">
+                    <p>firstName lastName</p>
                 </div>
 
                 <div id="game-stats">
 
                     <h3>Letters Guessed</h3>
-                    <p> F B L X R</p>
+                    <p><span id="letters-guessed-text"></span></p>
 
                     <h3>Guesses Remaining</h3>
-                    <p>5</p>
+                    <p><span id="guesses-remaining-text"></span></p>
+                    
                     <h3>Wins</h3> 
-                    <p>2</p>
-                    <h3>Losses</h3>
-                    <p>1</p>
+                    <p><span id="wins-text"></span></p>
 
                 </div>
             </div>
@@ -60,7 +60,7 @@
     </div>
 
     <!-- Javascript -->
-    <script type="text/javascript" src="assets/javascript/game.js"></script>
+    <script type="text/javascript" src="assets/javascript/game1.js"></script>
 
 </body>
 </html>
