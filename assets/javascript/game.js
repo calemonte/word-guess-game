@@ -1,74 +1,191 @@
-// Array of valid keys the user can press
+// Array of valid keys the user can press.
 var validLetters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
-// Contain an array of 10 soccer player's last names in lowercase.
-var players = ["messi", "cuadrado", "ozil", "morata", "hazard", "marcelo", "aubameyang", "mbappe", "pulisic", "firmino", "ronaldo", "welbeck"];
+// Array of 5 soccer player's stored as objects.
+var players = [
+    { 
+        firstName: "Mohamed",
+        lastName: "Salah",
+        team: "Liverpool F.C.",
+        image: "assets/images/salah.jpg",
+        imageAltText: "Mohamed Salah sticking his tongue out after celebrating a goal for Liverpool F.C.",
+        lastChars: ["s", "a", "l", "a", "h"],
+        lastUlines: []
+    },
+    {
+        firstName: "Pierre-Emerick",
+        lastName: "Aubameyang",
+        team: "Arsenal F.C.",
+        image: "assets/images/aubameyang.jpg",
+        imageAltText: "Pierre-Emerick Aubameyang celebrates scoring a goal for Arsenal F.C.",
+        lastChars: ["a", "u", "b", "a", "m", "e", "y", "a", "n", "g"],
+        lastUlines: []
+    },
+    {
+        firstName: "Eden",
+        lastName: "Hazard",
+        team: "Chelsea F.C.",
+        image: "assets/images/hazard.jpg",
+        imageAltText: "Eden Hazard dribbles a soccer ball for Chelsea F.C.",
+        lastChars: ["h", "a", "z", "a", "r", "d"],
+        lastUlines: []
+    },
+    {
+        firstName: "Raheem",
+        lastName: "Sterling",
+        team: "Manchester City F.C.",
+        image: "assets/images/sterling.jpg",
+        imageAltText: "Raheem Sterling dribbles a soccer ball for Manchester City F.C.",
+        lastChars: ["s", "t", "e", "r", "l", "i", "n", "g"],
+        lastUlines: []
+    },
+    {
+        firstName: "Romelu",
+        lastName: "Lukaku",
+        team: "Manchester United F.C.",
+        image: "assets/images/lukaku.jpeg",
+        imageAltText: "Romelu Lukaku walks on a soccer pitch in a Manchester United F.C. kit.",
+        lastChars: ["l", "u", "k", "a", "k", "u"],
+        lastUlines: []
+    }
+];
 
-// Set number of guesses to 10. Set number of wins to 0. Set number of losses to 0. Display these values on the page.
-var wins = 0;
-var losses = 0;
-var guesses = 12;
-
-// Create variables that hold references to the places in the HTML where we want to display things.
+// Create variables that hold references to the places in the HTML where game events are displayed.
 var playerCharText = document.getElementById("soccer-player-char");
+var lettersGuessedText = document.getElementById("letters-guessed-text");
+var guessesRemainingText = document.getElementById("guesses-remaining-text");
 var winsText = document.getElementById("wins-text");
-var lossesText = document.getElementById("losses-text");
-var wordsGuessedText = document.getElementById("words-guessed-text");
-var guessesLeft = document.getElementById("guesses-left-text");
-var playerPhoto = document.getElementById("player-photo");
+var firstNameText = document.getElementById("first-name-text");
+var LastNameText = document.getElementById("last-name-text");
+var teamNameText = document.getElementById("team-name-text");
 
-// Randomly pick a name from the array of soccer player names and then split those names into a new array comprised of individual characters.
-var currentPlayer = players[Math.floor(Math.random() * players.length)];
-var currentPlayerChars = currentPlayer.split('');
-console.log(currentPlayerChars);
+// Arrays of values that will be incremented or added to.
+var playersPicked = 0;
+var wins = 0;
+var guessesRemaining = 8;
 
-// Create function that sets the board by looping over array of characters and drawing correct number of underscores corresponding to number of characters in array.
-var setBoard = function (currentPlayerChars) {
-    for (var i = 0; i < currentPlayerChars.length; i++) {
-        playerCharText.textContent += " " + "_";
-    };
-    guesses = 12;
-    guessesLeft.textContent = guesses;
+// Function that picks the next soccer player from the array of objects and sets the board with . 
+function setBoard() {
+    // Only draw underlines if there are still players to be picked. 
+    if (playersPicked <= (players.length - 1)) {
+
+        // Clear the board to get started.
+        playerCharText.innerHTML = '';
+        // Create local variable to keep tabs on which player is selected (DELETE LATER ONCE COMPLETE).
+        var currentPlayer = players[playersPicked];
+        // Loop over characters in array of characters and display # of underlines corresponding to number of characters in player's last name.        
+        for (var i = 0; i < players[playersPicked].lastChars.length; i++) {
+            // For next player, push number of underlines into any empty array. 
+            players[playersPicked].lastUlines.push("_");
+            // Display those underlines (I used join to get rid of the commas).
+            playerCharText.innerHTML = players[playersPicked].lastUlines.join(" ");
+        }
+        // Reset guesses remaining counter 
+        guessesRemaining = 8;
+        guessesRemainingText.innerHTML = guessesRemaining;
+
+        // Reset letters guessed array
+        lettersGuessed = [];
+        lettersGuessedText.innerHTML = lettersGuessed;
+
+    // If there are no more players left to guess, display message ending the game.
+    } else {
+        playerCharText.innerHTML = "That's full-time! No more players left!";
+    }
+    // Show me the current player selected (DELETE LATER ONCE COMPLETE).
+    console.log(currentPlayer);
 };
 
-// Set board for the first time.
-setBoard(currentPlayerChars);
+// Function that displays the letters already guessed.
+function updateLettersGuessed() {
+    lettersGuessedText.innerHTML = lettersGuessed;
+};
 
-// User can input any alphabetical key to see if the character is part of the unknown player's last name. The user input is stored in a variable.
-document.onkeyup = function(event) {
-
-    // Determines which key was pressed.
-    var userGuess = event.key;
-    var lettersGuessed = [];
-
-    if (validLetters.indexOf(userGuess) !== -1) {
-        
-        // If user guesses a character that is in the soccer playrer's last name.
-        if (currentPlayerChars.includes(userGuess)) {
-                playerCharText.textContent += " " + userGuess;
-        }
-        
-        // If entered letter has not been guessed yet and it isn't in player's name, push to array containing guessed letters and decrement guesses by 1.  
-        if (!currentPlayerChars.includes(userGuess)) {    // If not in array, add letter to array of already guessed letters and decrement guesses by 1.
-            lettersGuessed.push(userGuess);
-            wordsGuessedText.textContent += " " + lettersGuessed + " ";
-            guesses--;
-            guessesLeft.textContent = guesses;
-            console.log(lettersGuessed);
-        }
-
-        if (guesses === 0) {
-            alert("You lost!");
-            losses++;
-            lossesText.textContent = losses;
-            playerCharText = " ";
-            setBoard(currentPlayerChars);
-        }
-    }
+// Function that decrements guesses remaining and displays the value.
+function updateGuessesRemaining() {
+    guessesRemaining--;
+    guessesRemainingText.innerHTML = guessesRemaining;
 }
 
+// Function that increments wins and displays the value.
+function updateWins() {
+    wins++;
+    winsText.innerHTML = wins;
+}
 
-// If user input doesn't equal a character in the player's last name, decrement chances by 1. Display character guessed in the "Letters Already Guessed" box.  
-// If user guesses a character that was already chosen, alert the user and say character already selected. Number of guesses remains the same.
-// If all letters correctly guessed && guesses > 0, alert user that they've won by displaying a picture of the soccer player. Increment wins by 1. Display new set of hidden chars.
-// If guesses === 0 and all chars haven't been guessed, alert user that they've lost, increment losses by 1, and display new set of hidden chars.
+function displayPlayer() {
+    firstNameText.innerHTML = players[playersPicked].firstName;
+    LastNameText.innerHTML = players[playersPicked].lastName;
+    teamNameText.innerHTML = players[playersPicked].team;
+    document.getElementById("player-photo").src = players[playersPicked].image;
+    document.getElementById("player-photo").alt = players[playersPicked].imageAltText;
+}
+
+// Function that compares user guess against last name array and returns index locations for all matches.
+function compareGuess(arr1, arr2, userGuess) {
+    for (var i = 0; i < arr1.length; i++) {
+        if (userGuess === arr1[i]) {
+            arr2[i] = arr1[i];
+        } 
+    }
+    playerCharText.innerHTML = arr2.join(" ");
+};
+
+// Function that checks to see if the arrays are equal.
+function equalArray(arr1, arr2) {
+    if (arr1.length !== arr2.length) {
+        return false;
+    }
+    
+    for (var i = 0; i < arr1.length; i++) {
+        if (arr1[i] !== arr2[i]) {
+            return false;
+        }
+    }
+    return true;
+};
+
+// Start the game
+setBoard();
+
+// Accept user guess and compare to 
+document.onkeyup = function(event) {
+
+    // Stop if all of the players have been picked.
+    if (playersPicked >= players.length) {
+        return;
+    }
+
+    // Determines which key was pressed and sets to lowercase.
+    var userGuess = event.key.toLowerCase();
+
+    // Only run if valid letter is pressed
+    if (validLetters.includes(userGuess)) {
+        // If letter guessed is in the player's last name, determine index of letter in player's name, and display that letter in it's proper place.
+        if (players[playersPicked].lastChars.includes(userGuess)) {
+            // Run compareGuess function.
+            compareGuess(players[playersPicked].lastChars, players[playersPicked].lastUlines, userGuess);
+        // If not in the player's last name and the letter hasn't already been guessed, push into array containing guesses and decrement guesses remaining.
+        } else if (!players[playersPicked].lastChars.includes(userGuess) && !lettersGuessed.includes(userGuess)) {
+            lettersGuessed.push(userGuess);
+            updateLettersGuessed();
+            updateGuessesRemaining();
+        // Alert user if they already guessed an incorrect letter. Do not dock them a guess.
+        } else {
+            alert("You already guessed " + userGuess + "!");
+        }
+    }
+
+    // Increment wins if player guesses name correctly.
+    if (equalArray(players[playersPicked].lastChars, players[playersPicked].lastUlines)) {
+        updateWins();
+        displayPlayer();
+        playersPicked++;
+        setBoard();
+    }
+    // Reset the board if guesses reach 0.
+    if (guessesRemaining <= 0) {
+        playersPicked++;
+        setBoard();
+    }
+};

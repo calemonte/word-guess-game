@@ -23,7 +23,8 @@ h1 {
 }
 
 #game-wrapper {
-    margin: 3em;
+    margin: 2em auto;
+    width: 80%;
     padding: 2em;
     border: 2px solid black;
     border-radius: 8px;
@@ -86,14 +87,14 @@ Second row styles
     justify-content: center;
 }
 
-#player-photo {
+#player-photo-container {
     box-sizing: content-box;
     flex: 0 1 auto;
     margin: auto;
     padding: 2em;
 }
 
-#player-photo img {
+#player-photo {
     width: 200px;
     height: 200px;
     border: 2px solid black;
@@ -116,8 +117,23 @@ Second row styles
     text-decoration: underline;
 }
 
-#player-photo p, #game-stats p {
+#player-photo-container p, #game-stats p {
     margin-top: 1em;
     font-size: 18px;
 }
 
+#team-name-text {
+    font-style: italic;
+}
+
+/* 
+===========================
+Media queries
+===========================
+*/
+
+@media screen and (max-width: 535px) {
+    h1 {
+        font-size: 40px;
+    }
+}

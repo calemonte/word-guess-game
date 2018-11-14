@@ -21,7 +21,7 @@
     <!-- Game logo -->
     <div id="game-wrapper">
         <header id="masthead">
-            <h1>Premier League Word Guess</h1>
+            <h1>Premier League Name Guess</h1>
         </header>
 
         <!-- Playing area where the game takes place -->
@@ -29,7 +29,7 @@
 
             <!-- First row where player name characters are revealed -->
             <div id="first-row">
-                <h2>Press any key to get started</h2>
+                <h2>Press any letter to get started</h2>
                 <p><span id="soccer-player-char"></span></p>
             </div>
 
@@ -37,9 +37,10 @@
             <div id="second-row">
 
                 <!-- Player photo displayed here. Aligned to the left of the game stats. -->
-                <div id="player-photo">
-                    <img src="assets/images/soccer-ball.jpg" alt="Soccer ball on a green pitch.">
-                    <p>firstName lastName</p>
+                <div id="player-photo-container">
+                    <img src="assets/images/soccer-ball.jpg" alt="Soccer ball on a green pitch." id="player-photo">
+                    <p><span id="first-name-text">Who am I???</span> <span id="last-name-text"></span></p>
+                    <p><span id="team-name-text"></span></p>
                 </div>
 
                 <div id="game-stats">
@@ -51,7 +52,7 @@
                     <p><span id="guesses-remaining-text"></span></p>
                     
                     <h3>Wins</h3> 
-                    <p><span id="wins-text"></span></p>
+                    <p><span id="wins-text">0</span></p>
 
                 </div>
             </div>
@@ -60,7 +61,7 @@
     </div>
 
     <!-- Javascript -->
-    <script type="text/javascript" src="assets/javascript/game1.js"></script>
+    <script type="text/javascript" src="assets/javascript/game.js"></script>
 
 </body>
 </html>
