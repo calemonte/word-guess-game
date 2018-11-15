@@ -64,27 +64,26 @@ var playersPicked = 0;
 var wins = 0;
 var guessesRemaining = 8;
 
-// Function that picks the next soccer player from the array of objects and sets the board with . 
+// Function that picks the next soccer player from the array of objects and sets the board with underlines. 
 function setBoard() {
     // Only draw underlines if there are still players to be picked. 
     if (playersPicked <= (players.length - 1)) {
 
         // Clear the board to get started.
         playerCharText.innerHTML = '';
-        // Create local variable to keep tabs on which player is selected (DELETE LATER ONCE COMPLETE).
-        var currentPlayer = players[playersPicked];
-        // Loop over characters in array of characters and display # of underlines corresponding to number of characters in player's last name.        
+        
+        // Loop over characters array and display # of underlines corresponding to player's last name.        
         for (var i = 0; i < players[playersPicked].lastChars.length; i++) {
             // For next player, push number of underlines into any empty array. 
             players[playersPicked].lastUlines.push("_");
             // Display those underlines (I used join to get rid of the commas).
             playerCharText.innerHTML = players[playersPicked].lastUlines.join(" ");
         }
-        // Reset guesses remaining counter 
+        // Reset guesses remaining counter.
         guessesRemaining = 8;
         guessesRemainingText.innerHTML = guessesRemaining;
 
-        // Reset letters guessed array
+        // Reset letters guessed array.
         lettersGuessed = [];
         lettersGuessedText.innerHTML = lettersGuessed;
 
@@ -92,13 +91,11 @@ function setBoard() {
     } else {
         playerCharText.innerHTML = "That's full-time! No more players left!";
     }
-    // Show me the current player selected (DELETE LATER ONCE COMPLETE).
-    console.log(currentPlayer);
 };
 
 // Function that displays the letters already guessed.
 function updateLettersGuessed() {
-    lettersGuessedText.innerHTML = lettersGuessed;
+    lettersGuessedText.innerHTML = lettersGuessed.join(" ").toUpperCase();
 };
 
 // Function that decrements guesses remaining and displays the value.
@@ -113,6 +110,7 @@ function updateWins() {
     winsText.innerHTML = wins;
 }
 
+// Function that displays a player's first and last name, image, and team name.
 function displayPlayer() {
     firstNameText.innerHTML = players[playersPicked].firstName;
     LastNameText.innerHTML = players[playersPicked].lastName;
@@ -121,7 +119,7 @@ function displayPlayer() {
     document.getElementById("player-photo").alt = players[playersPicked].imageAltText;
 }
 
-// Function that compares user guess against last name array and returns index locations for all matches.
+// Function that compares user guess against last name array and then replaces underline with correct letter at index location(s).
 function compareGuess(arr1, arr2, userGuess) {
     for (var i = 0; i < arr1.length; i++) {
         if (userGuess === arr1[i]) {
@@ -131,7 +129,7 @@ function compareGuess(arr1, arr2, userGuess) {
     playerCharText.innerHTML = arr2.join(" ");
 };
 
-// Function that checks to see if the arrays are equal.
+// Function that checks to see if two arrays are equal.
 function equalArray(arr1, arr2) {
     if (arr1.length !== arr2.length) {
         return false;
@@ -148,7 +146,7 @@ function equalArray(arr1, arr2) {
 // Start the game
 setBoard();
 
-// Accept user guess and compare to 
+// Execute all of these conditions if key is pressed.
 document.onkeyup = function(event) {
 
     // Stop if all of the players have been picked.
@@ -159,13 +157,12 @@ document.onkeyup = function(event) {
     // Determines which key was pressed and sets to lowercase.
     var userGuess = event.key.toLowerCase();
 
-    // Only run if valid letter is pressed
+    // Only run if valid letter is pressed.
     if (validLetters.includes(userGuess)) {
-        // If letter guessed is in the player's last name, determine index of letter in player's name, and display that letter in it's proper place.
+        // If letter guessed is in the player's last name, run the compareGuess function to display correct letters.
         if (players[playersPicked].lastChars.includes(userGuess)) {
-            // Run compareGuess function.
             compareGuess(players[playersPicked].lastChars, players[playersPicked].lastUlines, userGuess);
-        // If not in the player's last name and the letter hasn't already been guessed, push into array containing guesses and decrement guesses remaining.
+        // If not in the player's last name and the letter hasn't already been guessed, push into array containing guesses and decrement guessesRemaining.
         } else if (!players[playersPicked].lastChars.includes(userGuess) && !lettersGuessed.includes(userGuess)) {
             lettersGuessed.push(userGuess);
             updateLettersGuessed();
@@ -176,7 +173,7 @@ document.onkeyup = function(event) {
         }
     }
 
-    // Increment wins if player guesses name correctly.
+    // If player guesses name correctly, display the player's photograph and details, increment words and playersPicked counter, and reset the board.
     if (equalArray(players[playersPicked].lastChars, players[playersPicked].lastUlines)) {
         updateWins();
         displayPlayer();
