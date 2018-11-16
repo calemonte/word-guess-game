@@ -1,6 +1,3 @@
-// Array of valid keys the user can press.
-var validLetters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-
 // Array of 5 soccer player's stored as objects.
 var players = [
     { 
@@ -55,6 +52,7 @@ var playerCharText = document.getElementById("soccer-player-char");
 var lettersGuessedText = document.getElementById("letters-guessed-text");
 var guessesRemainingText = document.getElementById("guesses-remaining-text");
 var winsText = document.getElementById("wins-text");
+var instructionsText = document.getElementById("instructions");
 var firstNameText = document.getElementById("first-name-text");
 var LastNameText = document.getElementById("last-name-text");
 var teamNameText = document.getElementById("team-name-text");
@@ -89,7 +87,7 @@ function setBoard() {
 
     // If there are no more players left to guess, display message ending the game.
     } else {
-        playerCharText.innerHTML = "That's full-time! No more players left!";
+        playerCharText.innerHTML = "That's full-time! You were " + wins + "/" + playersPicked + ".";
     }
 };
 
@@ -104,11 +102,35 @@ function updateGuessesRemaining() {
     guessesRemainingText.innerHTML = guessesRemaining;
 }
 
+// Function that displays celebratory text if user guesses the player's correctly.
+function celebration() {
+    var celebrationArr = [
+        "What a strike from " + players[playersPicked].lastName + "! That's +1.", 
+        "GOOOOOOOOOOL from " + players[playersPicked].lastName + "! Another point on the board.",
+        players[playersPicked].lastName + " makes it look easy! Tally another point.",
+        "A thunderbolt from " + players[playersPicked].lastName + "! +1, mate."
+    ];
+    var result = celebrationArr[Math.floor(Math.random() * celebrationArr.length)];
+    instructionsText.innerHTML = result;
+};
+
+// Function that displays text with player's name if guessed incorrectly.
+function missed() {
+    var missedArr = [
+        "Bummer! You were shooting for " + players[playersPicked].lastName + "!", 
+        "Sorry, mate! The player was " + players[playersPicked].lastName + ". Give it another go!",
+        "Yikes, that's a missed opportunity. The player was " + players[playersPicked].lastName + "!"
+    ];
+    var result = missedArr[Math.floor(Math.random() * missedArr.length)];
+    instructionsText.innerHTML = result;
+}
+
 // Function that increments wins and displays the value.
 function updateWins() {
     wins++;
     winsText.innerHTML = wins;
-}
+    celebration();
+};
 
 // Function that displays a player's first and last name, image, and team name.
 function displayPlayer() {
@@ -117,7 +139,7 @@ function displayPlayer() {
     teamNameText.innerHTML = players[playersPicked].team;
     document.getElementById("player-photo").src = players[playersPicked].image;
     document.getElementById("player-photo").alt = players[playersPicked].imageAltText;
-}
+};
 
 // Function that compares user guess against last name array and then replaces underline with correct letter at index location(s).
 function compareGuess(arr1, arr2, userGuess) {
@@ -158,7 +180,7 @@ document.onkeyup = function(event) {
     var userGuess = event.key.toLowerCase();
 
     // Only run if valid letter is pressed.
-    if (validLetters.includes(userGuess)) {
+    if (event.keyCode > 64 && event.keyCode < 91) {
         // If letter guessed is in the player's last name, run the compareGuess function to display correct letters.
         if (players[playersPicked].lastChars.includes(userGuess)) {
             compareGuess(players[playersPicked].lastChars, players[playersPicked].lastUlines, userGuess);
@@ -178,11 +200,19 @@ document.onkeyup = function(event) {
         updateWins();
         displayPlayer();
         playersPicked++;
-        setBoard();
+        // Hang on player's full name for 3 seconds.
+        setTimeout(function() {
+            setBoard();
+        }, 3000);
     }
-    // Reset the board if guesses reach 0.
+    // Reset the board if guesses reach 0. Show the correct answer.
     if (guessesRemaining <= 0) {
+        playerCharText.innerHTML = players[playersPicked].lastChars.join(" ");
+        missed();
+        displayPlayer();
         playersPicked++;
-        setBoard();
+        setTimeout(function() {
+            setBoard();
+        }, 3000);
     }
 };

@@ -43,10 +43,6 @@ Masthead styles
 	-webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     box-sizing: border-box;
-	/* font: {
-		size: 20vw;
-		family: $font;
-    }; */
 }
 
 /* 
@@ -104,20 +100,24 @@ Second row styles
 #game-stats {
     box-sizing: content-box;
     flex: 0 1 auto;
-    margin: auto;
-    padding: 2em;
-    /* border: 2px solid black; */
+    margin: 1em auto;
+    padding: 1em;
     border-radius: 8px;
 }
 
 #game-stats h3 {
-    margin-top: 1em;
+    margin: 1em auto;
     font-size: 18px;
     font-weight: bold;
     text-decoration: underline;
 }
 
-#player-photo-container p, #game-stats p {
+#player-photo-container p {
+    margin-top: 1em;
+    font-size: 18px;
+}
+
+#game-stats p {
     margin-top: 1em;
     font-size: 18px;
 }
@@ -136,4 +136,8 @@ Media queries
     h1 {
         font-size: 40px;
     }
-}
+
+    #player-photo-container {
+        padding-bottom: 1em;
+    }
+};
