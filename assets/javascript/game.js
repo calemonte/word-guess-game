@@ -118,7 +118,7 @@ function celebration() {
 function missed() {
     var missedArr = [
         "Bummer! You were shooting for " + players[playersPicked].lastName + "!", 
-        "Sorry, mate! The player was " + players[playersPicked].lastName + ". Give it another go!",
+        "Sorry, mate! The player was " + players[playersPicked].lastName + ".",
         "Yikes, that's a missed opportunity. The player was " + players[playersPicked].lastName + "!"
     ];
     var result = missedArr[Math.floor(Math.random() * missedArr.length)];
@@ -203,7 +203,7 @@ document.onkeyup = function(event) {
         // Hang on player's full name for 3 seconds.
         setTimeout(function() {
             setBoard();
-        }, 3000);
+        }, 1500);
     }
     // Reset the board if guesses reach 0. Show the correct answer.
     if (guessesRemaining <= 0) {
@@ -213,6 +213,6 @@ document.onkeyup = function(event) {
         playersPicked++;
         setTimeout(function() {
             setBoard();
-        }, 3000);
+        }, 1500);
     }
 };
